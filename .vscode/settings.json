@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "libft.h": "c"
+        "libft.h": "c",
+        "ft_nm.h": "c",
+        "mman.h": "c",
+        "stab.h": "c",
+        "loader.h": "c",
+        "nlist.h": "c"
     }
 }

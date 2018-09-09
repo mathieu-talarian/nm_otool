@@ -3,17 +3,12 @@
 
 int main(int ac, char **av)
 {
-    int i;
-
-    i = 1;
-    if (ac < 2)
-        return (0);
-    while (ac > 1)
+    int b;
+    while (1) 
     {
-        if (!ft_nm(av[i]))
-            return (0);
-        i++;
-        ac--;
+        if (ft_nm(ac, av))
+            return EXIT_FAILURE;
+        scanf("%d", &b);
     }
-    return (1);
+    return 0;//ft_nm(ac, av);
 }

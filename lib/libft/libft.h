@@ -112,6 +112,8 @@ void					ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void					ft_lstadd(t_list **alst, t_list *new);
 void					ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+void					ft_lstsort(t_list **lst, int (*f)(t_list *el1, t_list *el2));
+void 					ft_lstswap(t_list *l, t_list *next);
 
 int						ft_char_cmp(char a, char b);
 int						ft_count_words(const char *s, char c, \

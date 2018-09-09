@@ -29,6 +29,7 @@ ft_lstdelone.c\
 ft_lstiter.c\
 ft_lstmap.c\
 ft_lstnew.c\
+ft_lstsort.c\
 ft_memalloc.c\
 ft_memccpy.c\
 ft_memchr.c\
