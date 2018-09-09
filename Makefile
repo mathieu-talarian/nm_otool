@@ -5,7 +5,9 @@ main.c \
 nm.c handle_64b.c\
 handle_func.c\
 handle_output.c\
-type.c
+type.c \
+ft_sec_lst.c \
+ft_sym_lst.c
 
 
 OBJ_PATH= obj

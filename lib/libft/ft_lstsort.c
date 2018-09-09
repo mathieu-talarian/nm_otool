@@ -18,8 +18,9 @@ void ft_lstswap(t_list *l, t_list *next)
 
 void ft_lstsort(t_list **lst, int (*f)(t_list *el1, t_list *el2))
 {
-    t_list *l = *lst;
+    t_list *l;
 
+    l = *lst;
     while (l && l->next)
     {
         if (f(l, l->next) > 0)

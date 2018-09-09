@@ -15,40 +15,37 @@ char pbud_type()
     return 'U';
 }
 
-char comp_sect(t_sectors *s)
+char comp_sect(char *name)
 {
-    if (!ft_strcmp(s->name, SECT_DATA))
+    if (!ft_strcmp(name, SECT_DATA))
         return ('D');
-    else if (!ft_strcmp(s->name, SECT_BSS))
+    else if (!ft_strcmp(name, SECT_BSS))
         return ('B');
-    else if (!ft_strcmp(s->name, SECT_TEXT))
+    else if (!ft_strcmp(name, SECT_TEXT))
         return ('T');
     return ('S');
 }
 
-char sectorize(t_list **sect, uint8_t n_sect)
+char sectorize(t_sec_l **sect, uint8_t n_sect)
 {
-    t_list *l;
-    t_sectors *s;
+    t_sec_l *l;
 
     l = *sect;
     while (l)
     {
-        s = (t_sectors *)l->content;
-        if ((s->nb) == n_sect)
-            return (comp_sect(s));
+        if ((l->nb) == n_sect)
+            return (comp_sect(l->name));
         l = l->next;
     }
     return 'T';
 }
 
-char type(t_list **sec, uint8_t type, int v, uint8_t n_sect)
+char type(t_sec_l **sec, uint8_t type, int v, uint8_t n_sect)
 {
     uint8_t t;
     char r;
 
     t = type & N_TYPE;
-    r = '?';
     if (t == N_UNDF)
         r = undef_type(v);
     else if (t == N_ABS)

@@ -19,10 +19,26 @@ typedef struct s_sectors
 
 typedef struct s_symbols
 {
+    uint8_t type;
     char *sti;
-    long int value;
-    char type;
+    char *value;
 } t_symbols;
+
+typedef struct s_sec_l
+{
+    char *name;
+    int nb;
+    struct s_sec_l *next;
+} t_sec_l;
+
+typedef struct s_sym_l
+{
+    int type;
+    char *sti;
+    char *value;
+    struct s_sym_l *next;
+    struct s_sym_l *previous;
+} t_sym_l;
 
 typedef struct s_h64
 {
@@ -34,8 +50,8 @@ typedef struct s_h64
     char *stringtable;
     struct nlist_64 *el;
 
-    t_list *sec;
-    t_list *list;
+    t_sec_l *sectors;
+    t_sym_l *symbols;
 } t_h64;
 
 typedef int (*HandleFunc)(char *ptr);
@@ -48,5 +64,14 @@ int handle_64(char *ptr);
 
 int handle_output(t_h64 h);
 
-char type(t_list **sec, uint8_t type, int v, uint8_t n_sect);
+char type(t_sec_l **sec, uint8_t type, int v, uint8_t n_sect);
+
+void sec_l_add(t_sec_l **sectors, t_sec_l *new);
+void sec_l_del(t_sec_l **sectors);
+
+void sym_l_add(t_sym_l **symbols, t_sym_l *new);
+void sym_l_del(t_sym_l **symbols);
+void sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2));
+int sl(char *el1, char *el2);
+
 #endif
