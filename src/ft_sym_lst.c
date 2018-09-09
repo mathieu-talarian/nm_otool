@@ -36,22 +36,19 @@ int sl(char *el1, char *el2)
     return ft_strcmp(el1, el2);
 }
 
-void swap(t_sym_l *a, t_sym_l *b)
+void swap(t_sym_l *current, t_sym_l *next)
 {
-    if (a == b)
-        return;
+    current->next = next->next;
+    next->previous = current->previous;
 
-    a->next = b->next;
-    b->previous = a->previous;
+    if (current->next != NULL)
+        current->next->previous = current;
 
-    if (a->next != NULL)
-        a->next->previous = a;
-
-    if (b->previous != NULL)
-        b->previous->next = b;
-
-    b->next = a;
-    a->previous = b;
+    if (next->previous != NULL)
+        next->previous->next = next;
+    
+    next->next = current;
+    current->previous = next;
 }
 
 void sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2))

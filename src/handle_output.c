@@ -134,7 +134,7 @@ void pl(t_sym_l **s)
     l = *s;
     while (l)
     {
-        printf("%s\n", l->sti);
+        printf("here => %s\n", l->sti);
         l = l->next;
     }
     l = *s;
@@ -155,6 +155,7 @@ int handle_output(t_h64 h)
     i = -1;
     while (++i < h.sym->nsyms)
         new_sym(&h.symbols, h, h.el[i]);
+    pl(&h.symbols);
     sym_l_sort(&h.symbols, sl);
     pl(&h.symbols);
     sym_l_del(&h.symbols);
