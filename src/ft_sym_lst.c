@@ -36,6 +36,24 @@ int sl(char *el1, char *el2)
     return ft_strcmp(el1, el2);
 }
 
+void swap(t_sym_l *a, t_sym_l *b)
+{
+    if (a == b)
+        return;
+
+    a->next = b->next;
+    b->previous = a->previous;
+
+    if (a->next != NULL)
+        a->next->previous = a;
+
+    if (b->previous != NULL)
+        b->previous->next = b;
+
+    b->next = a;
+    a->previous = b;
+}
+
 void sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2))
 {
     printf("a ");
@@ -48,18 +66,9 @@ void sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2))
     l = *symbols;
     while (l && l->next)
     {
-        if (f(l->sti, l->next->sti))
+        if (f(l->sti, l->next->sti) > 0)
         {
-            tmp_p = l->previous;
-            tmp_h = l;
-            tmp_n = l->next;
-            l->next->previous = l->previous;
-            l->next->next = l;
-            if (l->previous)
-                l->previous->next = l->next;
-            l->next = tmp_n->next;
-            l->previous = tmp_n;
-            tmp_n->previous = l;
+            swap(l, l->next);
             sym_l_sort(symbols, f);
         }
         l = l->next;

@@ -134,7 +134,7 @@ void pl(t_sym_l **s)
     l = *s;
     while (l)
     {
-        printf("%s\n", l->value);
+        printf("%s\n", l->sti);
         l = l->next;
     }
     l = *s;
@@ -143,7 +143,7 @@ void pl(t_sym_l **s)
     printf("\n");
     while (l)
     {
-        printf("%s\n", l->value);
+        printf("%s\n", l->sti);
         l = l->previous;
     }
 }
