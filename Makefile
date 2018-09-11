@@ -7,7 +7,9 @@ handle_func.c\
 handle_output.c\
 type.c \
 ft_sec_lst.c \
-ft_sym_lst.c
+ft_sym_lst.c \
+value_to_add.c \
+is_corrupted.c
 
 
 OBJ_PATH= obj

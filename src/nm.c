@@ -22,7 +22,17 @@ int close_file(char **ptr, int *fd, struct stat *buf)
 	return EXIT_SUCCESS;
 }
 
-static int start(char *file)
+int handle_errors_env(t_env e)
+{
+	if (e.error)
+	{
+		ft_putendl_fd(e.error, 2);
+		ft_strdel(&e.error);
+	}
+	return EXIT_FAILURE;
+}
+
+static int start(char *file, t_env e)
 {
 	int fd;
 	char *ptr;
@@ -30,23 +40,34 @@ static int start(char *file)
 
 	if (open_file(file, &fd, &ptr, &buf))
 		return EXIT_FAILURE;
-	if (handle_func(ptr)(ptr))
-		return FPFI("Issue", 2, EXIT_FAILURE);
+	if (handle_func(ptr)(e, ptr, buf.st_size))
+		return handle_errors_env(e);
 	if (close_file(&ptr, &fd, &buf))
 		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
 }
 
+void init_env(t_env *e)
+{
+	e->error = NULL;
+}
+
 int ft_nm(int ac, char **av)
 {
 	int i;
+	t_env e;
 
 	i = 1;
+	init_env(&e);
 	if (ac < 2)
-		return (start("a.out"));
+	{
+		if (start("a.out", e))
+			return EXIT_FAILURE;
+		return EXIT_SUCCESS;
+	}
 	while (ac > 1)
 	{
-		if (start(av[i]))
+		if (start(av[i], e))
 			return EXIT_FAILURE;
 		i++;
 		ac--;

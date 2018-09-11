@@ -44,66 +44,6 @@ char *ft_xlongtoa(long unsigned int n)
     return str;
 }
 
-// // t_symbols *init_t_s()
-// // {
-// //     t_symbols *s;
-
-// //     if (!(s = (t_symbols *)malloc(sizeof(t_symbols))))
-// //         return NULL;
-// //     s->type = NULL;
-// //     s->value = NULL;
-// //     s->sti = NULL;
-// //     return s;
-// // }
-
-// void print_list(t_list **l)
-// {
-//     t_list *list;
-
-//     list = *l;
-//     while (list)
-//     {
-//         t_symbols *s = (t_symbols *)list->content;
-//         printf("%s ", s->value);
-//         printf("%s \n", s->sti);
-
-//         list = list->next;
-//     }
-// }
-
-// void del(void *content, size_t c_size)
-// {
-//     t_symbols *s;
-
-//     s = (t_symbols *)content;
-//     ft_strdel(&s->sti);
-//     ft_strdel(&s->value);
-//     ft_strdel((char **)&content);
-// }
-
-// void del_s(void *content, size_t c_size)
-// {
-//     t_sectors *s;
-
-//     s = (t_sectors *)content;
-//     ft_strdel(&s->name);
-//     ft_strdel((char **)&content);
-// }
-
-// int handle_output(t_h64 h)
-// {
-//     unsigned int i;
-
-//     i = -1;
-//     while (++i < h.sym->nsyms)
-//         new_sym(&h.list, h, h.el[i]);
-//     ft_lstsort(&h.list, &sl);
-//     //print_list(&h.list);
-//     ft_lstdel(&h.list, del);
-//     ft_lstdel(&h.sec, del_s);
-//     return EXIT_SUCCESS;
-// }
-
 t_sym_l *new_symbol(char *sti, int type, uint64_t value)
 {
     t_sym_l *s;
@@ -111,8 +51,9 @@ t_sym_l *new_symbol(char *sti, int type, uint64_t value)
 
     s = malloc(sizeof(t_sym_l));
     s->sti = ft_strdup(sti);
-    s->type = type;
-    v = ft_xlongtoa(value);
+    s->type = malloc(sizeof(int));
+    (*s->type) = type;
+    v = value_to_add(value);
     s->value = v;
     s->next = NULL;
     s->previous = NULL;
@@ -134,28 +75,22 @@ void pl(t_sym_l **s)
     l = *s;
     while (l)
     {
-        printf("here => %s\n", l->sti);
+        ft_putstr(l->value);
+        ft_putchar(' ');
+        ft_putchar((*l->type));
+        ft_putchar(' ');
+        ft_putstr(l->sti);
+        ft_putchar('\n');
         l = l->next;
-    }
-    l = *s;
-    while (l->next)
-        l = l->next;
-    printf("\n");
-    while (l)
-    {
-        printf("%s\n", l->sti);
-        l = l->previous;
     }
 }
 
 int handle_output(t_h64 h)
 {
     unsigned int i;
-
     i = -1;
     while (++i < h.sym->nsyms)
         new_sym(&h.symbols, h, h.el[i]);
-    pl(&h.symbols);
     sym_l_sort(&h.symbols, sl);
     pl(&h.symbols);
     sym_l_del(&h.symbols);

@@ -1,8 +1,12 @@
 #include "ft_nm.h"
 
-int handle_error(char *ptr)
+int handle_error(t_env e, char *ptr, off_t size)
 {
-    printf("Issue");
+    off_t s;
+    t_env d;
+
+    s = size;
+    d = e;
     return EXIT_FAILURE;
 }
 

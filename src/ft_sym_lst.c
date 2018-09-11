@@ -25,6 +25,7 @@ void sym_l_del(t_sym_l **symbols)
         n = l->next;
         ft_strdel(&l->sti);
         ft_strdel(&l->value);
+        ft_strdel((char **)&l->type);
         ft_strdel((char **)&l);
         l = n;
     }
@@ -36,29 +37,31 @@ int sl(char *el1, char *el2)
     return ft_strcmp(el1, el2);
 }
 
+void swap_i(int **ptr1, int **ptr2)
+{
+    int *tmp;
+    tmp = *ptr1;
+    *ptr1 = *ptr2;
+    *ptr2 = tmp;
+}
+
+void swap_c(char **str1_ptr, char **str2_ptr)
+{
+    char *temp = *str1_ptr;
+    *str1_ptr = *str2_ptr;
+    *str2_ptr = temp;
+}
+
 void swap(t_sym_l *current, t_sym_l *next)
 {
-    current->next = next->next;
-    next->previous = current->previous;
-
-    if (current->next != NULL)
-        current->next->previous = current;
-
-    if (next->previous != NULL)
-        next->previous->next = next;
-    
-    next->next = current;
-    current->previous = next;
+    swap_c(&current->sti, &next->sti);
+    swap_c(&current->value, &next->value);
+    swap_i(&current->type, &next->type);
 }
 
 void sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2))
 {
-    printf("a ");
     t_sym_l *l;
-    t_sym_l *tmp_n;
-    t_sym_l *tmp_h;
-    t_sym_l *tmp_p;
-    int tmpt;
 
     l = *symbols;
     while (l && l->next)

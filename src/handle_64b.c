@@ -1,10 +1,13 @@
 #include "ft_nm.h"
 
-static void init_h(t_h64 *h, char *ptr)
+static void init_h(t_h64 *h, char *ptr, off_t size)
 {
+
     h->header = (struct mach_header_64 *)ptr;
     h->ncmds = h->header->ncmds;
     h->lc = (void *)ptr + sizeof(struct mach_header_64);
+    h->ptr = ptr;
+    h->size = size;
     h->sectors = NULL;
     h->symbols = NULL;
 }
@@ -46,35 +49,46 @@ void new_segs(t_sec_l **sec, struct load_command *lc)
     }
 }
 
-void section(t_h64 *h)
+int section(t_h64 *h)
 {
     struct load_command *lc;
     int i;
 
     i = -1;
     lc = h->lc;
+    if (is_corrupted((unsigned char *)(lc + 1), h->ptr, h->size) || (lc->cmdsize % 8))
+        return EXIT_FAILURE;
     while (++i < h->ncmds)
     {
         if (lc->cmd == LC_SEGMENT_64)
             new_segs(&h->sectors, lc);
         lc += lc->cmdsize / sizeof(void *);
     }
+    return EXIT_SUCCESS;
 }
 
-int handle_64(char *ptr)
+int err(t_env *e, char *err)
+{
+    printf("%s\n", err);
+    e->error = ft_strdup(err);
+    return EXIT_FAILURE;
+}
+
+int handle_64(t_env e, char *ptr, off_t size)
 {
     int i;
-    t_h64 h;
 
     i = -1;
-    init_h(&h, ptr);
-    section(&h);
-    sec_l_del(&h.sectors);
-    while (++i < h.ncmds)
+    init_h(&e.h, ptr, size);
+    if (is_corrupted((unsigned char *)(e.h.header + 1), (void *)ptr, size))
+        return err(&e, "The file is corrupted at macheader64");
+    if (section(&e.h))
+        return err(&e, "The file is corrupted at LC_SEGMENT_64");
+    while (++i < e.h.ncmds)
     {
-        if (h.lc->cmd == LC_SYMTAB)
-            return handle_output(_t(&h, ptr, (struct symtab_command *)h.lc));
-        h.lc = (void *)h.lc + h.lc->cmdsize;
+        if (e.h.lc->cmd == LC_SYMTAB)
+            return handle_output(_t(&e.h, ptr, (struct symtab_command *)e.h.lc));
+        e.h.lc = (void *)e.h.lc + e.h.lc->cmdsize;
     }
     return EXIT_FAILURE;
 }
