@@ -42,7 +42,7 @@ void addr(char *R, uint64_t value, int l)
 char *value_to_add(uint64_t value)
 {
     char *ret;
-    int length;
+    int   length;
 
     if (value == 0)
         return ft_strdup("                ");

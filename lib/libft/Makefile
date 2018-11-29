@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 18:46:08 by mmoullec          #+#    #+#              #
-#    Updated: 2016/06/03 19:17:29 by mmoullec         ###   ########.fr        #
+#    Updated: 2018/11/27 17:28:28 by mmoullec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = gcc -Wall -Werror -Wextra
-SRC = ft_atoi.c\
+SRC_NAME = ft_atoi.c\
 	ft_bzero.c\
 	ft_char_cmp.c\
 ft_count_words.c\
@@ -29,7 +29,6 @@ ft_lstdelone.c\
 ft_lstiter.c\
 ft_lstmap.c\
 ft_lstnew.c\
-ft_lstsort.c\
 ft_memalloc.c\
 ft_memccpy.c\
 ft_memchr.c\
@@ -82,24 +81,32 @@ ft_putendl_sp.c\
 get_next_line.c\
 ft_atoi_base.c\
 ft_convert_base.c\
+ft_putendl_fd_int.c\
 ft_len_nb.c
 
+OBJ_NAME = $(SRC_NAME:.c=.o)
 
-OBJ = $(SRC:.c=.o)
+OBJ_PATH= obj
+SRC_PATH= src
+
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME):
-	@$(CC) -c $? $(SRC) -I.
+$(NAME): $(OBJ)
 	@ar rc $(NAME) $? $(OBJ)
 	@ranlib $(NAME)
 
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+		@mkdir $(OBJ_PATH) 2> /dev/null || true
+		$(CC) -Iinclude -o $@ -c $<
 
 clean:
-	@/bin/rm -f $(OBJ)
+	@rm -fv $(OBJ)
 
 fclean: clean
-	@/bin/rm $(NAME)
+	@rm -fv $(NAME)
 
 re: fclean all
 

@@ -5,6 +5,7 @@
         "mman.h": "c",
         "stab.h": "c",
         "loader.h": "c",
-        "nlist.h": "c"
+        "nlist.h": "c",
+        "stat.h": "c"
     }
 }

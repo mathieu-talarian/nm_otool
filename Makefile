@@ -2,19 +2,22 @@ NAME= ft_nm
 SRC_PATH= src
 SRC_NAME= \
 main.c \
-nm.c handle_64b.c\
+nm.c handle_64b.c \
+handle_32.c \
 handle_func.c\
 handle_output.c\
 type.c \
 ft_sec_lst.c \
 ft_sym_lst.c \
 value_to_add.c \
+fat_arch.c \
+utils.c \
 is_corrupted.c
 
 
 OBJ_PATH= obj
 
-IC = -Iincludes
+IC = -Iinclude -Ilib/libft/include
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
@@ -29,11 +32,11 @@ LIBFTDIR = lib/libft
 all: $(NAME)
 
 $(NAME): $(OBJ) .libft
-	$(CC)  -std=c17 -o nm $(OBJ) -Ilib/libft -lft -Llib/libft
+	$(CC)  -o nm $(OBJ) -Ilib/libft -lft -Llib/libft
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 		@mkdir $(OBJ_PATH) 2> /dev/null || true
-		$(CC)  $(IC) -o $@ -c $<
+		$(CC)  -o $@ -c $< $(IC)
 
 test: .libft $(OBJ)
 	$(CC) main_test/main.c obj/*.o $(IC) -o malloc -Llib/libft -lft

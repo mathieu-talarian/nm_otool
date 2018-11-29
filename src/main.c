@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "ft_nm.h"
 
 int main(int ac, char **av)

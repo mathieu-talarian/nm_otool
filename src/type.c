@@ -15,7 +15,7 @@ char pbud_type()
     return 'U';
 }
 
-char comp_sect(char *name)
+char comp_sect(char* name)
 {
     if (!ft_strcmp(name, SECT_DATA))
         return ('D');
@@ -26,13 +26,12 @@ char comp_sect(char *name)
     return ('S');
 }
 
-char sectorize(t_sec_l **sect, uint8_t n_sect)
+char sectorize(t_sec_l** sect, uint8_t n_sect)
 {
-    t_sec_l *l;
+    t_sec_l* l;
 
     l = *sect;
-    while (l)
-    {
+    while (l) {
         if ((l->nb) == n_sect)
             return (comp_sect(l->name));
         l = l->next;
@@ -40,7 +39,7 @@ char sectorize(t_sec_l **sect, uint8_t n_sect)
     return 'T';
 }
 
-char type(t_sec_l **sec, uint8_t type, int v, uint8_t n_sect)
+char type(t_sec_l** sec, uint8_t type, int v, uint8_t n_sect)
 {
     uint8_t t;
     char r;

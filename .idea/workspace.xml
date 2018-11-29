@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="false">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e7f32433-f86e-40b3-970a-dbeb71050ba9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/ft_nm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/lib/libft/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_atoi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_atoi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_atoi_base.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_atoi_base.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_bzero.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_bzero.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_char_cmp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_char_cmp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_convert_base.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_convert_base.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_count_words.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_count_words.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isalnum.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isalnum.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isalpha.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isalpha.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isascii.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isascii.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isdigit.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isdigit.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isprint.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isprint.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isspace.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_isspace.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_itoa.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_itoa.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_len_nb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_len_nb.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstadd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstadd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstdel.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstdel.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstdelone.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstdelone.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstiter.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstiter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstmap.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstmap.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstnew.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstnew.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstsort.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_lstsort.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memalloc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memalloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memccpy.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memccpy.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memchr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memchr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memcmp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memcmp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memcpy.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memcpy.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memdel.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memdel.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memmove.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memmove.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memset.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_memset.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putchar.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putchar.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putchar_fd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putchar_fd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putendl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putendl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putendl_fd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putendl_fd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putendl_sp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putendl_sp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr_endl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr_endl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr_fd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr_fd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr_ull_endl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putnbr_ull_endl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putstr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putstr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putstr_fd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putstr_fd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putstr_sp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_putstr_sp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strcat.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strcat.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strchr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strchr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strclr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strclr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strcmp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strcmp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strcpy.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strcpy.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strdel.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strdel.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strdup.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strdup.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strequ.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strequ.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_striter.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_striter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_striteri.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_striteri.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strjoin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strjoin.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strlcat.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strlcat.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strlen.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strlen.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strmap.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strmap.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strmapi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strmapi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strncat.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strncat.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strncmp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strncmp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strncpy.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strncpy.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strnequ.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strnequ.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strnew.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strnew.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strnstr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strnstr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strrchr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strrchr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strrev.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strrev.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strsplit.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strsplit.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strstr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strstr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strsub.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strsub.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strtrim.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_strtrim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_tolower.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_tolower.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_toupper.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/ft_toupper.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/get_next_line.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/get_next_line.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/libft.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libft/libft.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nm" beforeDir="false" afterPath="$PROJECT_DIR$/nm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/ft_sec_lst.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/ft_sym_lst.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/handle_64b.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/handle_64b.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/handle_func.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/handle_output.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/is_corrupted.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/nm.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/nm.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/type.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/value_to_add.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ft_sym_lst.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/ft_sym_lst.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handle_64.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handle_64.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handle_64b.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handle_64b.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handle_func.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handle_func.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handle_output.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handle_output.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/is_corrupted.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/is_corrupted.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nm.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/nm.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/type.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/type.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/value_to_add.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/value_to_add.c" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-2079774448">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="11" />
+          <entry key="project.open.time.13" value="2" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.open.time.6" value="3" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.opened" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="c" value="1" />
+          <entry key="clang-format" value="1" />
+          <entry key="gitignore" value="1" />
+          <entry key="txt" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CMakeLists.txt" value="1" />
+          <entry key="Git file" value="1" />
+          <entry key="ObjectiveC" value="1" />
+          <entry key="PLAIN_TEXT" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="c" value="144" />
+          <entry key="clang-format" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="ObjectiveC" value="144" />
+          <entry key="PLAIN_TEXT" value="2" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/handle_64b.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="629">
+              <caret line="69" column="68" selection-start-line="69" selection-start-column="68" selection-end-line="69" selection-end-column="68" />
+              <folding>
+                <element signature="e#20#329#0" />
+                <element signature="e#331#513#0" />
+                <element signature="e#515#674#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clang-format">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="15" selection-start-column="15" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/.clang-format" />
+        <option value="$PROJECT_DIR$/clang-format" />
+        <option value="$PROJECT_DIR$/src/handle_64b.c" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1680" />
+    <option name="height" value="1050" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>C/C++</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>GeneralC/C++</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="nm-otool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nm-otool" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nm-otool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nm-otool" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="io.probst.idea.clangformat.ClangFormatConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e7f32433-f86e-40b3-970a-dbeb71050ba9" name="Default Changelist" comment="" />
+      <created>1543447321208</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1543447321208</updated>
+      <workItem from="1543447326021" duration="8000" />
+      <workItem from="1543447353815" duration="513000" />
+      <workItem from="1543447902328" duration="135000" />
+      <workItem from="1543448061040" duration="173000" />
+      <workItem from="1543448259708" duration="38000" />
+      <workItem from="1543448502776" duration="61000" />
+      <workItem from="1543448630801" duration="8000" />
+      <workItem from="1543448733729" duration="33000" />
+      <workItem from="1543448819418" duration="338000" />
+      <workItem from="1543449177927" duration="208000" />
+      <workItem from="1543449406724" duration="274000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1789000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2814408" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="CMake" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="make" order="4" weight="0.32967034" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/handle_64b.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="69" column="68" selection-start-line="69" selection-start-column="68" selection-end-line="69" selection-end-column="68" />
+          <folding>
+            <element signature="e#20#329#0" />
+            <element signature="e#331#513#0" />
+            <element signature="e#515#674#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clang-format">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" selection-start-column="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

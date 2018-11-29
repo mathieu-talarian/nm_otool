@@ -42,7 +42,6 @@
 // int handle_64(char *ptr)
 // {
 
-
 //     i = -1;
 //     header = (struct mach_header_64 *)ptr;
 //     ncmds = header->ncmds;
