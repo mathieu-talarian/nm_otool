@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_64b.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
+/*   Updated: 2018/12/03 20:50:15 by mathieumo        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_nm.h"
+
+int is_corrupted(long size, long start, long jump, long offset)
+{
+    if (offset > size || jump - start < size)
+        return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+}
 
 void init_h_64(t_h64 *h, char *ptr, off_t size, char opt)
 {
@@ -55,8 +74,8 @@ int section(t_h64 *h)
 
     i = -1;
     lc = h->load_command;
-    if (is_corrupted((unsigned char *) (lc + 1), h->ptr, h->size) || (lc->cmdsize % 8))
-        return EXIT_FAILURE;
+    // if (is_corrupted((unsigned char *) (lc + 1), h->ptr, h->size) || (lc->cmdsize % 8))
+    //  return EXIT_FAILURE;
     while (++i < h->nb_cmds)
     {
         if (lc->cmd == LC_SEGMENT_64)
@@ -73,8 +92,17 @@ int err(t_env *e, char *err)
     return EXIT_FAILURE;
 }
 
-void match_sectors(char *segname, char *secname, t_env *e, uint64_t j)
+void match_sectors(char *segname, char *sectname, t_env *e, uint64_t j)
 {
+    if (ft_strcmpi(segname, sectname) == 0)
+    {
+        if (!ft_strcmp(sectname, "__data"))
+            ;
+        else if (!ft_strcmp(sectname, "__text"))
+            ;
+    }
+    else if (!ft_strcmp(segname, "__DATA") && !ft_strcmp(sectname, "__bss"))
+        ;
 }
 
 int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
@@ -89,6 +117,7 @@ int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
     j = -1;
     ncmds = (e->opt & TO_SWAP) ? SwapInt(segment_command_64->nsects) :
                                  segment_command_64->nsects;
+    printf("%llu\n", ncmds);
     while (++j < ncmds)
     {
         sectname = section_64[j].sectname;
@@ -98,14 +127,45 @@ int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
     return EXIT_SUCCESS;
 }
 
+static inline struct symtab_command swap_st(struct symtab_command *symtab_command)
+{
+    struct symtab_command sc_clean;
+
+    sc_clean = *symtab_command;
+    sc_clean.symoff = SwapInt(symtab_command->symoff);
+    sc_clean.stroff = SwapInt(symtab_command->stroff);
+    sc_clean.nsyms = SwapInt(symtab_command->nsyms);
+    return (sc_clean);
+}
+
+struct symtab_command swap_st_cmd(struct symtab_command *symtab_command, char opt)
+{
+    return (opt & TO_SWAP) ? swap_st(symtab_command) : *symtab_command;
+}
+
+int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
+{
+    printf("TEST\n");
+    return (0);
+}
+
 int handle_lc_64(t_env *e, char *ptr)
 {
     if (e->h.lc.cmd == LC_SEGMENT_64)
         sect_64((struct segment_command_64 *) e->h.load_command, e);
     if (e->h.lc.cmd == LC_SYMTAB)
-        ;
-    // symtab_64((struct symtab_command *) e->load_command, e);
+        symtab_64(swap_st_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, 0);
     return EXIT_SUCCESS;
+}
+
+struct load_command swap_lc_cmd(struct load_command *load_command)
+{
+    struct load_command lc;
+
+    lc = *load_command;
+    lc.cmd = SwapInt(load_command->cmd);
+    lc.cmdsize = SwapInt(load_command->cmdsize);
+    return lc;
 }
 
 int handle_64(t_env *e, char *ptr)
@@ -114,22 +174,15 @@ int handle_64(t_env *e, char *ptr)
 
     i = -1;
     init_h_64(&e->h, ptr, e->filesize, e->opt);
-    // if (is_corrupted((unsigned char *) (e->h.header + 1), (void *) ptr, e->filesize))
-    //     return err(e, "The file is corrupted at macheader64");
-    // if (section(&e->h))
-    //     return err(e, "The file is corrupted at LC_SEGMENT_64");
     while (++i < e->h.nb_cmds)
     {
-        e->h.lc = (e->opt & TO_SWAP) ? SwapInt(e->h.load_command->cmd) :
-                                       e->h.load_command->cmd;
-        if (is_corrupted(e->filesize, (long) ptr,
-                         (long) ((void *) e->load_command + e->lc.cmdsize)))
+        e->h.lc = (e->opt & TO_SWAP) ? swap_lc_cmd(e->h.load_command) : *e->h.load_command;
+        if (!is_corrupted(e->filesize, (long) ptr,
+                          (long) ((void *) e->h.load_command + e->h.lc.cmdsize), 0))
             return ft_putendl_fd_int("File Corrupted", 2, EXIT_FAILURE);
         if (handle_lc_64(e, ptr))
             return EXIT_FAILURE;
-        if (e->h.lc->cmd == LC_SYMTAB)
-            return handle_output(_t(&e->h, ptr, (struct symtab_command *) e->h.lc));
-        e->h.lc = (void *) e->h.lc + e->h.lc->cmdsize;
+        e->h.load_command = (void *) e->h.load_command + e->h.lc.cmdsize;
     }
     return EXIT_FAILURE;
 }

@@ -40,6 +40,7 @@ int handle_macho(t_env *e, char *ptr)
         handle_32(e, ptr);
     else
         handle_64(e, ptr);
+    return EXIT_FAILURE;
 }
 
 int handle_fat(t_env *e, char *ptr)
