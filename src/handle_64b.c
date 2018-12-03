@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/03 20:50:15 by mathieumo        ###   ########.fr       */
+/*   Updated: 2018/12/03 22:39:38 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int is_corrupted(long size, long start, long jump, long offset)
 void init_h_64(t_h64 *h, char *ptr, off_t size, char opt)
 {
     h->header = (struct mach_header_64 *) ptr;
-    h->nb_cmds = swap_test(h->header->ncmds, opt);
+    h->nb_cmds = swap_test(h->header->ncmds, opt & TO_SWAP);
     h->load_command = (void *) ptr + sizeof(struct mach_header_64);
     h->ptr = ptr;
     h->size = size;
@@ -94,6 +94,7 @@ int err(t_env *e, char *err)
 
 void match_sectors(char *segname, char *sectname, t_env *e, uint64_t j)
 {
+    dprintf(2, "%s | %s\n", segname, sectname);
     if (ft_strcmpi(segname, sectname) == 0)
     {
         if (!ft_strcmp(sectname, "__data"))
@@ -115,11 +116,11 @@ int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
 
     section_64 = (void *) segment_command_64 + sizeof(segment_command_64);
     j = -1;
-    ncmds = (e->opt & TO_SWAP) ? SwapInt(segment_command_64->nsects) :
-                                 segment_command_64->nsects;
-    printf("%llu\n", ncmds);
+    ncmds = (e->opt & TO_SWAP) ? SwapInt((int) segment_command_64->nsects) :
+                                 (int) segment_command_64->nsects;
     while (++j < ncmds)
     {
+        dprintf(2, "here qa\n");
         sectname = section_64[j].sectname;
         segname = section_64[j].segname;
         match_sectors(segname, sectname, e, j);
@@ -138,23 +139,63 @@ static inline struct symtab_command swap_st(struct symtab_command *symtab_comman
     return (sc_clean);
 }
 
-struct symtab_command swap_st_cmd(struct symtab_command *symtab_command, char opt)
+void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e)
+{
+    dprintf(2, "%s\n", strxstart);
+}
+
+static inline struct symtab_command swap_st_cmd(struct symtab_command *symtab_command, char opt)
 {
     return (opt & TO_SWAP) ? swap_st(symtab_command) : *symtab_command;
 }
 
+static inline struct nlist_64 swap_nlist64_cmd(struct nlist_64 nlist64, char toswap)
+{
+    struct nlist_64 st_clean;
+
+    st_clean = nlist64;
+    st_clean.n_value = toswap ? SwapInt(nlist64.n_value) : nlist64.n_value;
+    st_clean.n_un.n_strx = toswap ? SwapInt(nlist64.n_un.n_strx) : nlist64.n_un.n_strx;
+    return (st_clean);
+}
+
 int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
 {
-    printf("TEST\n");
+    struct nlist_64 *st;
+    struct nlist_64  st_c;
+    char *           strtbl;
+
+    e->h.nsyms = (int) symtab_command.nsyms;
+    if (!is_corrupted(e->filesize, 0, 0, symtab_command.symoff) &&
+        !is_corrupted(e->filesize, 0, 0, symtab_command.stroff))
+    {
+        st = (void *) ptr + symtab_command.symoff;
+        strtbl = (void *) ptr + symtab_command.stroff;
+    }
+    else
+        /* IS CORRUPTED */
+        return (EXIT_FAILURE);
+    while (++j < e->h.nsyms)
+    {
+        st_c = swap_nlist64_cmd(st[j], e->opt & TO_SWAP);
+        if (st_c.n_un.n_strx >= e->filesize - symtab_command.stroff)
+            /* IS CORRUPTED */
+            return (EXIT_FAILURE);
+        add_lst(st_c, strtbl + st_c.n_un.n_strx, e);
+        /* if (!((g->output)[j] = do_str_64(st_c, strtbl + st_c.n_un.n_strx, *g))) */
+        /*     return (ERR_MALLOC); */
+    }
     return (0);
 }
 
 int handle_lc_64(t_env *e, char *ptr)
 {
+    static int i = 0;
+
     if (e->h.lc.cmd == LC_SEGMENT_64)
         sect_64((struct segment_command_64 *) e->h.load_command, e);
     if (e->h.lc.cmd == LC_SYMTAB)
-        symtab_64(swap_st_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, 0);
+        symtab_64(swap_st_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, -1);
     return EXIT_SUCCESS;
 }
 

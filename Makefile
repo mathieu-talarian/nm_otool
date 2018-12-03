@@ -51,6 +51,9 @@ fclean: clean
 	make fclean -C lib/libft
 	@rm -rfv malloc
 
+run: all
+	./nm nm
+
 .libft:
 	make -C $(LIBFTDIR)
 .libftclean:

@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:38:07 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/11/29 00:09:50 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/03 22:31:31 by mathieumo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+
+// #include <stdbool.h>
 
 #define _ 0
 
@@ -71,14 +73,13 @@ typedef struct s_h64
     struct load_command *  load_command;
     struct load_command    lc;
     struct symtab_command *sym;
-
-    char *           stringtable;
-    struct nlist_64 *el;
-
-    void *   ptr;
-    off_t    size;
-    t_sec_l *sectors;
-    t_sym_l *symbols;
+    char *                 stringtable;
+    struct nlist_64 *      el;
+    void *                 ptr;
+    off_t                  size;
+    t_sec_l *              sectors;
+    t_sym_l *              symbols;
+    uint32_t               nsyms;
 } t_h64;
 
 typedef struct s_h32
@@ -131,7 +132,8 @@ int  sl(char *el1, char *el2);
 
 char *value_to_add(uint64_t value);
 
-int is_corrupted(unsigned char *ptr, void *file, off_t size);
+// int is_corrupted(off_t filesize, unsigned char *ptr, void *file, off_t size);
+int is_corrupted(long, long, long, long);
 
 int handle_fat_arch_64(t_env *, void *, uint32_t);
 int handle_fat_arch(t_env *, void *, uint32_t);

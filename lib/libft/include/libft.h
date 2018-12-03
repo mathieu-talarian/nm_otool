@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:12:22 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/11/27 17:27:49 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/03 16:51:52 by mathieumo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char * ft_strrchr(const char *src, int c);
 char * ft_strstr(const char *src, const char *to_find);
 char * ft_strnstr(const char *src, const char *to_find, size_t num);
 int    ft_strcmp(const char *s1, const char *s2);
+int    ft_strcmpi(const char *s1, const char *s2);
 int    ft_strncmp(const char *s1, const char *s2, size_t num);
 
 int ft_isalpha(int c);

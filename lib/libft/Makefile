@@ -6,7 +6,7 @@
 #    By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 18:46:08 by mmoullec          #+#    #+#              #
-#    Updated: 2018/11/27 17:28:28 by mmoullec         ###   ########.fr        #
+#    Updated: 2018/12/03 16:52:10 by mathieumo        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ ft_strcat.c\
 ft_strchr.c\
 ft_strclr.c\
 ft_strcmp.c\
+ft_strcmpi.c \
 ft_strcpy.c\
 ft_strdel.c\
 ft_strdup.c\
