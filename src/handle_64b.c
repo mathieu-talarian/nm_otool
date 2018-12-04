@@ -6,17 +6,20 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/04 04:10:04 by mathieumo        ###   ########.fr       */
+/*   Updated: 2018/12/04 19:24:59 by mathieumo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
+#define ERR_IS_COMPROMISED 1
+
 int is_corrupted(long size, long start, long jump, long offset)
 {
-    if (offset > size || jump - start < size)
-        return EXIT_FAILURE;
-    return EXIT_SUCCESS;
+    if (offset > size || jump - start > size)
+        return (ERR_IS_COMPROMISED);
+    else
+        return (0);
 }
 
 void init_h_64(t_h64 *h, char *ptr, off_t size, char opt)
@@ -128,7 +131,7 @@ int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
     return EXIT_SUCCESS;
 }
 
-static inline struct symtab_command swap_st(struct symtab_command *symtab_command)
+static inline struct symtab_command swap_symtab(struct symtab_command *symtab_command)
 {
     struct symtab_command sc_clean;
 
@@ -141,12 +144,12 @@ static inline struct symtab_command swap_st(struct symtab_command *symtab_comman
 
 void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e)
 {
-    dprintf(2, "%s\n", strxstart);
+    dprintf(2, "strxstart %s\n", strxstart);
 }
 
-static inline struct symtab_command swap_st_cmd(struct symtab_command *symtab_command, char opt)
+static inline struct symtab_command swap_symtab_cmd(struct symtab_command *symtab_command, char opt)
 {
-    return (opt & TO_SWAP) ? swap_st(symtab_command) : *symtab_command;
+    return (opt & TO_SWAP) ? swap_symtab(symtab_command) : *symtab_command;
 }
 
 static inline struct nlist_64 swap_nlist64_cmd(struct nlist_64 nlist64, char toswap)
@@ -161,6 +164,7 @@ static inline struct nlist_64 swap_nlist64_cmd(struct nlist_64 nlist64, char tos
 
 int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
 {
+    dprintf(2, "symtab64\n");
     struct nlist_64 *st;
     struct nlist_64  st_c;
     char *           strtbl;
@@ -173,10 +177,13 @@ int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
         strtbl = (void *) ptr + symtab_command.stroff;
     }
     else
-        /* IS CORRUPTED */
+    {
+        dprintf(2, "corrupted");
         return (EXIT_FAILURE);
+    }
     while (++j < e->h.nsyms)
     {
+        dprintf(2, "heredsfasdedsfasdffe\n");
         st_c = swap_nlist64_cmd(st[j], e->opt & TO_SWAP);
         if (st_c.n_un.n_strx >= e->filesize - symtab_command.stroff)
             /* IS CORRUPTED */
@@ -195,7 +202,7 @@ int handle_lc_64(t_env *e, char *ptr)
     if (e->h.lc.cmd == LC_SEGMENT_64)
         sect_64((struct segment_command_64 *) e->h.load_command, e);
     if (e->h.lc.cmd == LC_SYMTAB)
-        symtab_64(swap_st_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, -1);
+        symtab_64(swap_symtab_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, -1);
     return EXIT_SUCCESS;
 }
 
@@ -218,8 +225,8 @@ int handle_64(t_env *e, char *ptr)
     while (++i < e->h.nb_cmds)
     {
         e->h.lc = (e->opt & TO_SWAP) ? swap_lc_cmd(e->h.load_command) : *e->h.load_command;
-        if (!is_corrupted(e->filesize, (long) ptr,
-                          (long) ((void *) e->h.load_command + e->h.lc.cmdsize), 0))
+        if (is_corrupted(e->filesize, (long) ptr,
+                         (long) ((void *) e->h.load_command + e->h.lc.cmdsize), 0) == -1)
             return ft_putendl_fd_int("File Corrupted", 2, EXIT_FAILURE);
         if (handle_lc_64(e, ptr))
             return EXIT_FAILURE;
