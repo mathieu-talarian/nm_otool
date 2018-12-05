@@ -71,12 +71,10 @@ static int add_len(uint64_t add)
 
 static char *nbr_to_hex_str(uint64_t add)
 {
-    int   i;
-    uint32_t   r;
-    char *dt;
-    char *ret;
-
-	printf("%llu ", add);
+    int      i;
+    uint32_t r;
+    char *   dt;
+    char *   ret;
 
     i = LENGTH;
     ret = (char *) malloc(sizeof(char) * (LENGTH + 1));
@@ -100,5 +98,7 @@ static char *nbr_to_hex_str(uint64_t add)
 
 char *value_to_add(uint64_t value)
 {
+    if (value == 0)
+        return (ft_strdup("                "));
     return nbr_to_hex_str(value);
 }

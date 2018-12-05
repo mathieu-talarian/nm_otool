@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/05 01:39:25 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/05 18:47:07 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,23 +90,21 @@ int section(t_h64 *h)
 
 int err(t_env *e, char *err)
 {
-    printf("%s\n", err);
     // e->error = ft_strdup(err);
     return EXIT_FAILURE;
 }
 
-void match_sectors(char *segname, char *sectname, t_env *e, uint64_t j)
+void match_sectors(char *segname, char *sectname, t_env *e, int j)
 {
-    dprintf(2, "%s | %s\n", segname, sectname);
-    if (ft_strcmpi(segname, sectname) == 0)
+    if (strcasecmp(segname, sectname) == 0)
     {
         if (!ft_strcmp(sectname, "__data"))
-            ;
+            e->data_sec = e->n_sect + j + 1;
         else if (!ft_strcmp(sectname, "__text"))
-            ;
+            e->text_sec = e->n_sect + j + 1;
     }
     else if (!ft_strcmp(segname, "__DATA") && !ft_strcmp(sectname, "__bss"))
-        ;
+        e->bss_sec = e->n_sect + j + 1;
 }
 
 int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
@@ -114,20 +112,20 @@ int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
     struct section_64 *section_64;
     char *             segname;
     char *             sectname;
-    uint64_t           j;
-    uint64_t           ncmds;
+    uint32_t           j;
+    uint32_t           ncmds;
 
-    section_64 = (void *) segment_command_64 + sizeof(segment_command_64);
+    section_64 = (void *) segment_command_64 + sizeof(struct segment_command_64);
     j = -1;
-    ncmds = (e->opt & TO_SWAP) ? SwapInt((int) segment_command_64->nsects) :
-                                 (int) segment_command_64->nsects;
+    ncmds = (e->opt & TO_SWAP) ? SwapInt(segment_command_64->nsects) :
+                                 segment_command_64->nsects;
     while (++j < ncmds)
     {
-        dprintf(2, "here qa\n");
         sectname = section_64[j].sectname;
         segname = section_64[j].segname;
         match_sectors(segname, sectname, e, j);
     }
+    e->n_sect += j;
     return EXIT_SUCCESS;
 }
 
@@ -147,19 +145,47 @@ static inline struct symtab_command swap_symtab(struct symtab_command *symtab_co
 void prefill(uint8_t n_type, uint64_t n_value, char **ret)
 {
     if ((n_type & N_TYPE) == N_PBUD || (n_type & N_TYPE) == N_UNDF)
-    {
         *ret = value_to_add(0);
-    }
     else
         *ret = value_to_add(n_value);
 }
 
-void get_type_64(uint8_t n_type, char **pre)
+char get_type(int type, t_env *e, int fallback)
 {
-    int type;
+    if (type == N_SECT)
+    {
+        type = fallback;
+        if (type == e->bss_sec)
+            return ('B');
+        else if (type == e->data_sec)
+            return ('D');
+        else if (type == e->text_sec)
+            return ('T');
+        else
+            return ('S');
+    }
+    else
+    {
+        if (type == N_UNDF || type == N_PBUD)
+            return ('U');
+        if (type == N_ABS)
+            return ('A');
+        if (type == N_INDR)
+            return ('I');
+    }
+    return (' ');
+}
+
+char get_type_64(uint8_t n_type, uint8_t n_sect, t_env *e)
+{
+    int  type;
+    char ret;
 
     type = n_type & N_TYPE;
-
+    ret = get_type(type, e, n_sect);
+    if (!(n_type & N_EXT))
+        ret = ft_tolower(ret);
+    return (ret);
 }
 
 void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e)
@@ -167,13 +193,16 @@ void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e)
     int   type;
     char *pre;
     char *s;
+    char  value;
 
     if (symtab.n_type & N_STAB)
         dprintf(2, "");
     // type = symtab.n_sect == NO_SECT ? symtab.n_type & N_TYPE : symtab.n_sect | N_SECT_MASK;
     prefill(symtab.n_type, symtab.n_value, &pre);
-    get_type_64(symtab.n_type, &pre);
-    dprintf(2, "%s %s\n", pre, strxstart);
+    value = get_type_64(symtab.n_type, symtab.n_sect, e);
+    sym_l_add(&e->sym_l, sym_l_new(pre, value, strxstart));
+    ft_strdel(&pre);
+    // dprintf(2, "%s %c %s\n", pre, get_type_64(symtab.n_type, symtab.n_sect, e), strxstart);
 }
 
 static inline struct symtab_command swap_symtab_cmd(struct symtab_command *symtab_command, char opt)
@@ -233,15 +262,7 @@ int handle_lc_64(t_env *e, char *ptr)
     return EXIT_SUCCESS;
 }
 
-struct load_command swap_lc_cmd(struct load_command *load_command)
-{
-    struct load_command lc;
 
-    lc = *load_command;
-    lc.cmd = SwapInt(load_command->cmd);
-    lc.cmdsize = SwapInt(load_command->cmdsize);
-    return lc;
-}
 
 int handle_64(t_env *e, char *ptr)
 {
@@ -259,5 +280,6 @@ int handle_64(t_env *e, char *ptr)
             return EXIT_FAILURE;
         e->h.load_command = (void *) e->h.load_command + e->h.lc.cmdsize;
     }
+    handle_output(e->sym_l);
     return EXIT_FAILURE;
 }

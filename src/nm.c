@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 18:15:06 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/11/29 01:29:13 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/05 07:47:41 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int handle_errors_env(t_env e)
 {
     if (e.error)
     {
-        printf("errors");
         // ft_putendl_fd(e.error, 2);
         // ft_strdel(&e.error);
     }

@@ -6,6 +6,9 @@
         "stab.h": "c",
         "loader.h": "c",
         "nlist.h": "c",
-        "stat.h": "c"
+        "stat.h": "c",
+        "fat.h": "c",
+        "fcntl.h": "c",
+        "ar.h": "c"
     }
 }

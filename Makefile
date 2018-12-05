@@ -12,7 +12,8 @@ ft_sym_lst.c \
 value_to_add.c \
 fat_arch.c \
 utils.c \
-is_corrupted.c
+is_corrupted.c \
+_utils.c 
 
 
 OBJ_PATH= obj

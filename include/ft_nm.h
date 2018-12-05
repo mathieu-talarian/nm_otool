@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:38:07 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/03 22:31:31 by mathieumo        ###   ########.fr       */
+/*   Updated: 2018/12/05 18:48:07 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define FT_NM_H
 
 #include "libft.h"
+
+#include <string.h>
 
 #include <ar.h>
 #include <fcntl.h>
@@ -59,7 +61,7 @@ typedef struct s_sec_l
 
 typedef struct s_sym_l
 {
-    int *           type;
+    char            type;
     char *          sti;
     char *          value;
     struct s_sym_l *next;
@@ -84,9 +86,9 @@ typedef struct s_h64
 
 typedef struct s_h32
 {
-    int                    ncmds;
+    int                    nb_cmds;
     struct mach_header *   header;
-    struct load_command *  lc_p;
+    struct load_command *  load_command;
     struct load_command    lc;
     struct symtab_command *sym_p;
     struct symtab_command  sym;
@@ -96,10 +98,12 @@ typedef struct s_h32
     off_t                  size;
     t_sec_l *              sectors;
     t_sym_l *              symbols;
+    uint32_t               nsyms;
 } t_h32;
 
 typedef struct s_env
 {
+    t_sym_l *          sym_l;
     t_list *           error;
     t_h64              h;
     t_h32              h32;
@@ -107,6 +111,9 @@ typedef struct s_env
     char *             title;
     int                opt;
     long long unsigned n_sect;
+    unsigned char      data_sec;
+    unsigned char      text_sec;
+    unsigned char      bss_sec;
 } t_env;
 
 typedef int (*HandleFunc)(t_env *e, char *ptr);
@@ -118,17 +125,18 @@ int ft_nm(int, char **);
 int handle_32(t_env *, char *);
 int handle_64(t_env *, char *);
 
-int handle_output(t_h64);
+int handle_output(t_sym_l *);
 
 char type(t_sec_l **sec, uint8_t type, int v, uint8_t n_sect);
 
 void sec_l_add(t_sec_l **sectors, t_sec_l *new);
 void sec_l_del(t_sec_l **sectors);
 
-void sym_l_add(t_sym_l **symbols, t_sym_l *new);
-void sym_l_del(t_sym_l **symbols);
-void sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2));
-int  sl(char *el1, char *el2);
+t_sym_l *sym_l_new(char *pre, char type, char *start);
+void     sym_l_add(t_sym_l **symbols, t_sym_l *new);
+void     sym_l_del(t_sym_l **symbols);
+void     sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2));
+int      sl(char *el1, char *el2);
 
 char *value_to_add(uint64_t value);
 
@@ -142,5 +150,7 @@ int handle_32(t_env *, char *);
 int handle_macho(t_env *, char *);
 
 int swap_test(int, int);
+
+struct load_command swap_lc_cmd(struct load_command *);
 
 #endif

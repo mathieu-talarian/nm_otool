@@ -32,8 +32,17 @@ int config(void *ptr, int *opts)
     return EXIT_SUCCESS;
 }
 
+void _init_env(t_env **e)
+{
+    (*e)->sym_l = NULL;
+    (*e)->data_sec = 0;
+    (*e)->text_sec = 0;
+    (*e)->bss_sec = 0;
+}
+
 int handle_macho(t_env *e, char *ptr)
 {
+    _init_env(&e);
     if (config(ptr, &e->opt))
         return EXIT_FAILURE;
     if (e->opt & IS_32)
