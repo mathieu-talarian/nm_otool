@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/04 19:24:59 by mathieumo        ###   ########.fr       */
+/*   Updated: 2018/12/05 01:39:25 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,38 @@ static inline struct symtab_command swap_symtab(struct symtab_command *symtab_co
     return (sc_clean);
 }
 
+#define N_SECT_MASK 1024
+
+void prefill(uint8_t n_type, uint64_t n_value, char **ret)
+{
+    if ((n_type & N_TYPE) == N_PBUD || (n_type & N_TYPE) == N_UNDF)
+    {
+        *ret = value_to_add(0);
+    }
+    else
+        *ret = value_to_add(n_value);
+}
+
+void get_type_64(uint8_t n_type, char **pre)
+{
+    int type;
+
+    type = n_type & N_TYPE;
+
+}
+
 void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e)
 {
-    dprintf(2, "strxstart %s\n", strxstart);
+    int   type;
+    char *pre;
+    char *s;
+
+    if (symtab.n_type & N_STAB)
+        dprintf(2, "");
+    // type = symtab.n_sect == NO_SECT ? symtab.n_type & N_TYPE : symtab.n_sect | N_SECT_MASK;
+    prefill(symtab.n_type, symtab.n_value, &pre);
+    get_type_64(symtab.n_type, &pre);
+    dprintf(2, "%s %s\n", pre, strxstart);
 }
 
 static inline struct symtab_command swap_symtab_cmd(struct symtab_command *symtab_command, char opt)
@@ -164,17 +193,16 @@ static inline struct nlist_64 swap_nlist64_cmd(struct nlist_64 nlist64, char tos
 
 int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
 {
-    dprintf(2, "symtab64\n");
     struct nlist_64 *st;
     struct nlist_64  st_c;
-    char *           strtbl;
+    char *           stringtable;
 
     e->h.nsyms = (int) symtab_command.nsyms;
     if (!is_corrupted(e->filesize, 0, 0, symtab_command.symoff) &&
         !is_corrupted(e->filesize, 0, 0, symtab_command.stroff))
     {
         st = (void *) ptr + symtab_command.symoff;
-        strtbl = (void *) ptr + symtab_command.stroff;
+        stringtable = (void *) ptr + symtab_command.stroff;
     }
     else
     {
@@ -183,12 +211,11 @@ int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
     }
     while (++j < e->h.nsyms)
     {
-        dprintf(2, "heredsfasdedsfasdffe\n");
         st_c = swap_nlist64_cmd(st[j], e->opt & TO_SWAP);
         if (st_c.n_un.n_strx >= e->filesize - symtab_command.stroff)
             /* IS CORRUPTED */
             return (EXIT_FAILURE);
-        add_lst(st_c, strtbl + st_c.n_un.n_strx, e);
+        add_lst(st_c, stringtable + st_c.n_un.n_strx, e);
         /* if (!((g->output)[j] = do_str_64(st_c, strtbl + st_c.n_un.n_strx, *g))) */
         /*     return (ERR_MALLOC); */
     }
