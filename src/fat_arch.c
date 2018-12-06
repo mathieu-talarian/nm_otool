@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:07:43 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/01 20:05:35 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/05 22:36:11 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int match_cpu_64(uint32_t nb_arch, struct fat_arch_64 *fat_arch)
 {
-    int i;
+    uint32_t i;
 
     i = -1;
     while (++i < nb_arch)
@@ -31,7 +31,7 @@ int handle_fat_arch_64(t_env *e, void *ptr, uint32_t nb_arch)
     struct fat_arch_64 *fat_arch;
     int                 matched;
     int                 used;
-    int                 i;
+    uint32_t            i;
 
     i = -1;
     used = 0;
@@ -50,5 +50,8 @@ int handle_fat_arch_64(t_env *e, void *ptr, uint32_t nb_arch)
 
 int handle_fat_arch(t_env *e, void *ptr, uint32_t nb_arch)
 {
+    e = (void *) e;
+    ptr = (void *) ptr;
+    nb_arch = (uint16_t) nb_arch;
     return (0);
 }

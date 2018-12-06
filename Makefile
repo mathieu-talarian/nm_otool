@@ -13,6 +13,7 @@ value_to_add.c \
 fat_arch.c \
 utils.c \
 is_corrupted.c \
+match_sectors.c \
 _utils.c 
 
 
@@ -21,7 +22,7 @@ OBJ_PATH= obj
 IC = -Iinclude -Ilib/libft/include
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -37,7 +38,7 @@ $(NAME): $(OBJ) .libft
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 		@mkdir $(OBJ_PATH) 2> /dev/null || true
-		$(CC)  -o $@ -c $< $(IC)
+		$(CC) $(CFLAGS) -o $@ -c $< $(IC)
 
 test: .libft $(OBJ)
 	$(CC) main_test/main.c obj/*.o $(IC) -o malloc -Llib/libft -lft

@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:38:07 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/05 18:48:07 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/05 22:28:41 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_h32
 typedef struct s_env
 {
     t_sym_l *          sym_l;
-    t_list *           error;
+    char *             error;
     t_h64              h;
     t_h32              h32;
     off_t              filesize;
@@ -152,5 +152,6 @@ int handle_macho(t_env *, char *);
 int swap_test(int, int);
 
 struct load_command swap_lc_cmd(struct load_command *);
+void match_sectors(char *segname, char *sectname, t_env *e, int j);
 
 #endif

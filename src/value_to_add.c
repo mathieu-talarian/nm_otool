@@ -56,19 +56,6 @@
 //     return ret;
 // }
 
-static int add_len(uint64_t add)
-{
-    int len;
-
-    len = 0;
-    while (add)
-    {
-        add /= 16;
-        len++;
-    }
-    return (len);
-}
-
 static char *nbr_to_hex_str(uint64_t add)
 {
     int      i;

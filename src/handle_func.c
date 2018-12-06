@@ -4,14 +4,19 @@ int handle_error(t_env e, char *ptr, off_t size)
 {
     off_t s;
     t_env d;
+    char *p;
 
     s = size;
     d = e;
+    p = ptr;
     return EXIT_FAILURE;
 }
 
 int handle_lib(t_env *e, char *ptr)
 {
+    // TODO
+    e = (void *)e;
+    ptr = (void *)ptr;
     return 0;
 }
 

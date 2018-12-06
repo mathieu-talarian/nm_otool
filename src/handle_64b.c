@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/05 18:47:07 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/05 22:29:12 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,6 @@ void init_h_64(t_h64 *h, char *ptr, off_t size, char opt)
     h->size = size;
     h->sectors = NULL;
     h->symbols = NULL;
-}
-
-static t_h64 _t(t_h64 *h, char *ptr, struct symtab_command *l)
-{
-    h->sym = l;
-    h->stringtable = (void *) ptr + l->stroff;
-    h->el = (void *) ptr + l->symoff;
-    return *h;
 }
 
 t_sec_l *new_sector(char *sectname, int i)
@@ -70,41 +62,10 @@ void new_segs(t_sec_l **sec, struct load_command *lc)
     }
 }
 
-int section(t_h64 *h)
-{
-    struct load_command *lc;
-    int                  i;
-
-    i = -1;
-    lc = h->load_command;
-    // if (is_corrupted((unsigned char *) (lc + 1), h->ptr, h->size) || (lc->cmdsize % 8))
-    //  return EXIT_FAILURE;
-    while (++i < h->nb_cmds)
-    {
-        if (lc->cmd == LC_SEGMENT_64)
-            new_segs(&h->sectors, lc);
-        lc += lc->cmdsize / sizeof(void *);
-    }
-    return EXIT_SUCCESS;
-}
-
 int err(t_env *e, char *err)
 {
-    // e->error = ft_strdup(err);
+    e->error = ft_strdup(err);
     return EXIT_FAILURE;
-}
-
-void match_sectors(char *segname, char *sectname, t_env *e, int j)
-{
-    if (strcasecmp(segname, sectname) == 0)
-    {
-        if (!ft_strcmp(sectname, "__data"))
-            e->data_sec = e->n_sect + j + 1;
-        else if (!ft_strcmp(sectname, "__text"))
-            e->text_sec = e->n_sect + j + 1;
-    }
-    else if (!ft_strcmp(segname, "__DATA") && !ft_strcmp(sectname, "__bss"))
-        e->bss_sec = e->n_sect + j + 1;
 }
 
 int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
@@ -190,9 +151,7 @@ char get_type_64(uint8_t n_type, uint8_t n_sect, t_env *e)
 
 void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e)
 {
-    int   type;
     char *pre;
-    char *s;
     char  value;
 
     if (symtab.n_type & N_STAB)
@@ -220,7 +179,7 @@ static inline struct nlist_64 swap_nlist64_cmd(struct nlist_64 nlist64, char tos
     return (st_clean);
 }
 
-int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
+int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, uint32_t j)
 {
     struct nlist_64 *st;
     struct nlist_64  st_c;
@@ -253,16 +212,12 @@ int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, int j)
 
 int handle_lc_64(t_env *e, char *ptr)
 {
-    static int i = 0;
-
     if (e->h.lc.cmd == LC_SEGMENT_64)
         sect_64((struct segment_command_64 *) e->h.load_command, e);
     if (e->h.lc.cmd == LC_SYMTAB)
         symtab_64(swap_symtab_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, -1);
     return EXIT_SUCCESS;
 }
-
-
 
 int handle_64(t_env *e, char *ptr)
 {
@@ -281,5 +236,5 @@ int handle_64(t_env *e, char *ptr)
         e->h.load_command = (void *) e->h.load_command + e->h.lc.cmdsize;
     }
     handle_output(e->sym_l);
-    return EXIT_FAILURE;
+    return EXIT_SUCCESS;
 }
