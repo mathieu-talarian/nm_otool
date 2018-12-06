@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/nm",
-            "args": [nm],
+            "args": ["../nmot/test/cvfsdb_sbin"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

@@ -10,5 +10,6 @@
         "fat.h": "c",
         "fcntl.h": "c",
         "ar.h": "c"
-    }
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

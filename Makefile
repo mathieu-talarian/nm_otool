@@ -21,7 +21,7 @@ OBJ_PATH= obj
 
 IC = -Iinclude -Ilib/libft/include
 
-CC = gcc
+CC = clang
 CFLAGS = #-Wall -Wextra -Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

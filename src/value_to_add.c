@@ -1,7 +1,5 @@
 #include "ft_nm.h"
 
-#define LENGTH 16
-
 // int get_length(uint64_t value)
 // {
 //     int l;
@@ -56,15 +54,13 @@
 //     return ret;
 // }
 
-static char *nbr_to_hex_str(uint64_t add)
+static char *nbr_to_hex_str(uint64_t add, int i)
 {
-    int      i;
     uint32_t r;
     char *   dt;
     char *   ret;
 
-    i = LENGTH;
-    ret = (char *) malloc(sizeof(char) * (LENGTH + 1));
+    ret = (char *) malloc(sizeof(char) * (i + 1));
 
     dt = "0123456789abcdef";
     ret[i] = '\0';
@@ -83,9 +79,24 @@ static char *nbr_to_hex_str(uint64_t add)
     return ret;
 }
 
-char *value_to_add(uint64_t value)
+inline static char *space_str(int i)
+{
+    char *str;
+    int   j;
+
+    j = -1;
+    str = (char *) malloc(sizeof(char) * (i + 1));
+    if (!str)
+        return NULL;
+    str[i] = 0;
+    while (++j < i)
+        str[j] = ' ';
+    return str;
+}
+
+char *value_to_add(uint64_t value, int length)
 {
     if (value == 0)
-        return (ft_strdup("                "));
-    return nbr_to_hex_str(value);
+        return (space_str(length));
+    return nbr_to_hex_str(value, length);
 }

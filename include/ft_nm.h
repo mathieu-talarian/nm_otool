@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:38:07 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/05 22:28:41 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/06 02:04:29 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 #define FAT (1 << 4)
 #define TO_SWAP (1 << 5)
 #define IS_32 (1 << 6)
+
+#define LENGTH64 16
+#define LENGTH32 8
 
 #define SwapInt(x) \
     ((__uint32_t)((((__uint32_t)(x) &0xff000000) >> 24) | (((__uint32_t)(x) &0x00ff0000) >> 8) | (((__uint32_t)(x) &0x0000ff00) << 8) | (((__uint32_t)(x) &0x000000ff) << 24)))
@@ -138,7 +141,7 @@ void     sym_l_del(t_sym_l **symbols);
 void     sym_l_sort(t_sym_l **symbols, int (*f)(char *el1, char *el2));
 int      sl(char *el1, char *el2);
 
-char *value_to_add(uint64_t value);
+char *value_to_add(uint64_t value, int length);
 
 // int is_corrupted(off_t filesize, unsigned char *ptr, void *file, off_t size);
 int is_corrupted(long, long, long, long);
@@ -153,5 +156,8 @@ int swap_test(int, int);
 
 struct load_command swap_lc_cmd(struct load_command *);
 void match_sectors(char *segname, char *sectname, t_env *e, int j);
+struct symtab_command swap_symtab_cmd(struct symtab_command *symtab_command, char opt);
+void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e);
+void add_lst_32(struct nlist symtab, char *strxstart, t_env *e);
 
 #endif

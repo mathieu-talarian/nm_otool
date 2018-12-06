@@ -1,16 +1,21 @@
 {
-  "configurations": [{
-    "name": "Mac",
-    "includePath": [
-      "${workspaceFolder}/**",
-      "${workspaceFolder}/lib/libft/include/**"
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/lib/libft/include"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
     ],
-    "defines": [],
-    "macFrameworkPath": ["/System/Library/Frameworks", "/Library/Frameworks"],
-    "compilerPath": "/usr/bin/clang",
-    "cStandard": "c11",
-    "cppStandard": "c++17",
-    "intelliSenseMode": "clang-x64"
-  }],
-  "version": 4
+    "version": 4
 }

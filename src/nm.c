@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 18:15:06 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/05 07:47:41 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/06 02:45:01 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ int ft_nm(int ac, char **av)
     while (ac > 1)
     {
         if (start(av[i], &e))
+        {
             return EXIT_FAILURE;
+        }
         i++;
         ac--;
     }

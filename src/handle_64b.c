@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/05 22:29:12 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/06 03:21:33 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,84 +90,7 @@ int sect_64(struct segment_command_64 *segment_command_64, t_env *e)
     return EXIT_SUCCESS;
 }
 
-static inline struct symtab_command swap_symtab(struct symtab_command *symtab_command)
-{
-    struct symtab_command sc_clean;
-
-    sc_clean = *symtab_command;
-    sc_clean.symoff = SwapInt(symtab_command->symoff);
-    sc_clean.stroff = SwapInt(symtab_command->stroff);
-    sc_clean.nsyms = SwapInt(symtab_command->nsyms);
-    return (sc_clean);
-}
-
 #define N_SECT_MASK 1024
-
-void prefill(uint8_t n_type, uint64_t n_value, char **ret)
-{
-    if ((n_type & N_TYPE) == N_PBUD || (n_type & N_TYPE) == N_UNDF)
-        *ret = value_to_add(0);
-    else
-        *ret = value_to_add(n_value);
-}
-
-char get_type(int type, t_env *e, int fallback)
-{
-    if (type == N_SECT)
-    {
-        type = fallback;
-        if (type == e->bss_sec)
-            return ('B');
-        else if (type == e->data_sec)
-            return ('D');
-        else if (type == e->text_sec)
-            return ('T');
-        else
-            return ('S');
-    }
-    else
-    {
-        if (type == N_UNDF || type == N_PBUD)
-            return ('U');
-        if (type == N_ABS)
-            return ('A');
-        if (type == N_INDR)
-            return ('I');
-    }
-    return (' ');
-}
-
-char get_type_64(uint8_t n_type, uint8_t n_sect, t_env *e)
-{
-    int  type;
-    char ret;
-
-    type = n_type & N_TYPE;
-    ret = get_type(type, e, n_sect);
-    if (!(n_type & N_EXT))
-        ret = ft_tolower(ret);
-    return (ret);
-}
-
-void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e)
-{
-    char *pre;
-    char  value;
-
-    if (symtab.n_type & N_STAB)
-        dprintf(2, "");
-    // type = symtab.n_sect == NO_SECT ? symtab.n_type & N_TYPE : symtab.n_sect | N_SECT_MASK;
-    prefill(symtab.n_type, symtab.n_value, &pre);
-    value = get_type_64(symtab.n_type, symtab.n_sect, e);
-    sym_l_add(&e->sym_l, sym_l_new(pre, value, strxstart));
-    ft_strdel(&pre);
-    // dprintf(2, "%s %c %s\n", pre, get_type_64(symtab.n_type, symtab.n_sect, e), strxstart);
-}
-
-static inline struct symtab_command swap_symtab_cmd(struct symtab_command *symtab_command, char opt)
-{
-    return (opt & TO_SWAP) ? swap_symtab(symtab_command) : *symtab_command;
-}
 
 static inline struct nlist_64 swap_nlist64_cmd(struct nlist_64 nlist64, char toswap)
 {
@@ -229,7 +152,7 @@ int handle_64(t_env *e, char *ptr)
     {
         e->h.lc = (e->opt & TO_SWAP) ? swap_lc_cmd(e->h.load_command) : *e->h.load_command;
         if (is_corrupted(e->filesize, (long) ptr,
-                         (long) ((void *) e->h.load_command + e->h.lc.cmdsize), 0) == -1)
+                         (long) ((void *) e->h.load_command + e->h.lc.cmdsize), 0))
             return ft_putendl_fd_int("File Corrupted", 2, EXIT_FAILURE);
         if (handle_lc_64(e, ptr))
             return EXIT_FAILURE;
