@@ -1,4 +1,12 @@
 # Created by .ignore support plugin (hsz.mobi)
 Supprimerait .clang-format
 Supprimerait .idea/
+.vscode
+t1
+t2
+**/**.o
+**/**.a
+obj/
+lib/lift/obj
+nm
 
