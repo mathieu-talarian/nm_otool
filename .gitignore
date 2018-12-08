@@ -8,5 +8,6 @@ t2
 **/**.a
 obj/
 lib/lift/obj/
+lib/libft/libft.a
 nm
 
