@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:38:07 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/06 02:04:29 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/08 09:20:23 by mathieumo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_env
     char *             title;
     int                opt;
     long long unsigned n_sect;
+    char *             cputype;
     unsigned char      data_sec;
     unsigned char      text_sec;
     unsigned char      bss_sec;
@@ -160,4 +161,7 @@ struct symtab_command swap_symtab_cmd(struct symtab_command *symtab_command, cha
 void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e);
 void add_lst_32(struct nlist symtab, char *strxstart, t_env *e);
 
+int handle_fat(t_env *, char *ptr);
+
+char *get_cpu(int cputype);
 #endif

@@ -6,52 +6,30 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:07:43 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/05 22:36:11 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/08 09:15:01 by mathieumo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
 
-int match_cpu_64(uint32_t nb_arch, struct fat_arch_64 *fat_arch)
+char *get_cpu(int cputype)
 {
-    uint32_t i;
+    char *ret;
 
-    i = -1;
-    while (++i < nb_arch)
-    {
-        if (SwapInt(fat_arch->cputype) == CPU_TYPE_X86_64)
-            return (1);
-        fat_arch = (struct fat_arch_64 *) ((void *) fat_arch + sizeof(struct fat_arch_64));
-    }
-    return (0);
-}
-
-int handle_fat_arch_64(t_env *e, void *ptr, uint32_t nb_arch)
-{
-    struct fat_arch_64 *fat_arch;
-    int                 matched;
-    int                 used;
-    uint32_t            i;
-
-    i = -1;
-    used = 0;
-    fat_arch = (struct fat_arch_64 *) ((void *) ptr + sizeof(struct fat_header));
-    matched = match_cpu_64(nb_arch, fat_arch);
-    e->opt = matched ? e->opt & ~NO_X86_64 : e->opt | NO_X86_64;
-    while (++i < nb_arch)
-    {
-        // e->cputype
-        if (!matched || (matched && SwapInt(fat_arch->cputype) == CPU_TYPE_X86_64 && !used++))
-            return handle_macho(e, (void *) (ptr + SwapInt(fat_arch->offset)));
-        fat_arch = (struct fat_arch_64 *) ((void *) ptr + sizeof(struct fat_arch_64));
-    }
-    return EXIT_FAILURE;
-}
-
-int handle_fat_arch(t_env *e, void *ptr, uint32_t nb_arch)
-{
-    e = (void *) e;
-    ptr = (void *) ptr;
-    nb_arch = (uint16_t) nb_arch;
-    return (0);
+    ret = "";
+    ret = cputype == CPU_TYPE_VAX ? "vax" : ret;
+    ret = cputype == CPU_TYPE_MC680x0 ? "mc680x0" : ret;
+    ret = cputype == CPU_TYPE_X86 ? "x86" : ret;
+    ret = cputype == CPU_TYPE_I386 ? "i386" : ret;
+    ret = cputype == CPU_TYPE_X86_64 ? "x86_64" : ret;
+    ret = cputype == CPU_TYPE_MC98000 ? "mc98000" : ret;
+    ret = cputype == CPU_TYPE_HPPA ? "hppa" : ret;
+    ret = cputype == CPU_TYPE_ARM ? "arm" : ret;
+    ret = cputype == CPU_TYPE_ARM64 ? "arm64" : ret;
+    ret = cputype == CPU_TYPE_MC88000 ? "mc88000" : ret;
+    ret = cputype == CPU_TYPE_SPARC ? "sparc" : ret;
+    ret = cputype == CPU_TYPE_I860 ? "i860" : ret;
+    ret = cputype == CPU_TYPE_POWERPC ? "ppc" : ret;
+    ret = cputype == CPU_TYPE_POWERPC64 ? "ppc64" : ret;
+    return (ret);
 }

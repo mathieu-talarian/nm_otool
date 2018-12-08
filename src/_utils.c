@@ -64,6 +64,14 @@ char get_type_64(uint8_t n_type, uint8_t n_sect, t_env *e)
     return (ret);
 }
 
+static inline void prefill32(uint8_t n_type, uint32_t n_value, char **ret, int length)
+{
+    if ((n_type & N_TYPE) == N_PBUD || (n_type & N_TYPE) == N_UNDF)
+        *ret = value_to_add(0, length);
+    else
+        *ret = value_to_add(n_value, length);
+}
+
 static inline void prefill(uint8_t n_type, uint64_t n_value, char **ret, int lenght)
 {
     if ((n_type & N_TYPE) == N_PBUD || (n_type & N_TYPE) == N_UNDF)

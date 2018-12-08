@@ -14,6 +14,7 @@ fat_arch.c \
 utils.c \
 is_corrupted.c \
 match_sectors.c \
+handle_fat.c \
 _utils.c 
 
 
