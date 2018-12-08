@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:38:07 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/08 09:20:23 by mathieumo        ###   ########.fr       */
+/*   Updated: 2018/12/08 18:25:18 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,18 +106,18 @@ typedef struct s_h32
 
 typedef struct s_env
 {
-    t_sym_l *          sym_l;
-    char *             error;
-    t_h64              h;
-    t_h32              h32;
-    off_t              filesize;
-    char *             title;
-    int                opt;
-    long long unsigned n_sect;
-    char *             cputype;
-    unsigned char      data_sec;
-    unsigned char      text_sec;
-    unsigned char      bss_sec;
+    t_sym_l *     sym_l;
+    char *        error;
+    t_h64         h;
+    t_h32         h32;
+    off_t         filesize;
+    char *        title;
+    int           opt;
+    uint32_t      n_sect;
+    char *        cputype;
+    unsigned char data_sec;
+    unsigned char text_sec;
+    unsigned char bss_sec;
 } t_env;
 
 typedef int (*HandleFunc)(t_env *e, char *ptr);
@@ -156,7 +156,7 @@ int handle_macho(t_env *, char *);
 int swap_test(int, int);
 
 struct load_command swap_lc_cmd(struct load_command *);
-void match_sectors(char *segname, char *sectname, t_env *e, int j);
+void match_sectors(char *segname, char *sectname, t_env *e, uint32_t j);
 struct symtab_command swap_symtab_cmd(struct symtab_command *symtab_command, char opt);
 void add_lst(struct nlist_64 symtab, char *strxstart, t_env *e);
 void add_lst_32(struct nlist symtab, char *strxstart, t_env *e);
@@ -164,4 +164,5 @@ void add_lst_32(struct nlist symtab, char *strxstart, t_env *e);
 int handle_fat(t_env *, char *ptr);
 
 char *get_cpu(int cputype);
+int   handle_lib(t_env *e, char *ptr);
 #endif

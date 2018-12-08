@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 20:10:52 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/06 03:21:33 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/08 12:12:21 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,12 @@ int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, uint32_
         stringtable = (void *) ptr + symtab_command.stroff;
     }
     else
-    {
-        dprintf(2, "corrupted");
-        return (EXIT_FAILURE);
-    }
+        return ft_putendl_fd_int("Corrupted", 2, EXIT_FAILURE);
     while (++j < e->h.nsyms)
     {
         st_c = swap_nlist64_cmd(st[j], e->opt & TO_SWAP);
         if (st_c.n_un.n_strx >= e->filesize - symtab_command.stroff)
-            /* IS CORRUPTED */
-            return (EXIT_FAILURE);
+            return ft_putendl_fd_int("File corrupted", 2, EXIT_FAILURE);
         add_lst(st_c, stringtable + st_c.n_un.n_strx, e);
         /* if (!((g->output)[j] = do_str_64(st_c, strtbl + st_c.n_un.n_strx, *g))) */
         /*     return (ERR_MALLOC); */
@@ -136,9 +132,9 @@ int symtab_64(struct symtab_command symtab_command, char *ptr, t_env *e, uint32_
 int handle_lc_64(t_env *e, char *ptr)
 {
     if (e->h.lc.cmd == LC_SEGMENT_64)
-        sect_64((struct segment_command_64 *) e->h.load_command, e);
+        return sect_64((struct segment_command_64 *) e->h.load_command, e);
     if (e->h.lc.cmd == LC_SYMTAB)
-        symtab_64(swap_symtab_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, -1);
+        return symtab_64(swap_symtab_cmd((struct symtab_command *) e->h.load_command, e->opt), ptr, e, -1);
     return EXIT_SUCCESS;
 }
 
@@ -148,6 +144,7 @@ int handle_64(t_env *e, char *ptr)
 
     i = -1;
     init_h_64(&e->h, ptr, e->filesize, e->opt);
+
     while (++i < e->h.nb_cmds)
     {
         e->h.lc = (e->opt & TO_SWAP) ? swap_lc_cmd(e->h.load_command) : *e->h.load_command;

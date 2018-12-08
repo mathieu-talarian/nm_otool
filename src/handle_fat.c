@@ -6,7 +6,7 @@
 /*   By: mmoullec <mmoullec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 04:40:51 by mmoullec          #+#    #+#             */
-/*   Updated: 2018/12/08 09:29:49 by mmoullec         ###   ########.fr       */
+/*   Updated: 2018/12/08 12:00:36 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int handle_fat_arch(t_env *e, void *ptr, uint32_t nb_arch)
     match_cpu(nb_arch, fat_arch, &e->opt, &matched);
     while (++i < nb_arch)
     {
-        printf("%d\n", matched);
         e->cputype = get_cpu(SwapInt(fat_arch->cputype));
         if (!matched || (matched && SwapInt(fat_arch->cputype) == CPU_TYPE_X86_64 && !used++))
             return handle_macho(e, (void *) (ptr + SwapInt(fat_arch->offset)));

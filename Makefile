@@ -1,4 +1,5 @@
-NAME= ft_nm
+FT_NM= ft_nm
+FT_OTOOL= ft_otool
 SRC_PATH= src
 SRC_NAME= \
 main.c \
@@ -15,6 +16,7 @@ utils.c \
 is_corrupted.c \
 match_sectors.c \
 handle_fat.c \
+handle_lib.c \
 _utils.c 
 
 
@@ -32,10 +34,13 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 LIBFTDIR = lib/libft
 
-all: $(NAME)
+all: $(FT_NM) $(FT_OTOOL)
 
-$(NAME): $(OBJ) .libft
-	$(CC)  -o nm $(OBJ) -Ilib/libft -lft -Llib/libft
+$(FT_NM): $(OBJ) .libft
+	$(CC) $(CFLAGS) -o $(FT_NM) $(OBJ) -Ilib/libft -lft -Llib/libft
+
+$(FT_OTOOL): $(OBJ) .libft
+	$(CC) $(CFLAGS) -o $(FT_OTOOL) $(OBJ) -Ilib/libft -lft -Llib/libft
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 		@mkdir $(OBJ_PATH) 2> /dev/null || true
