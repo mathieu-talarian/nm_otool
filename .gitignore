@@ -7,6 +7,6 @@ t2
 **/**.o
 **/**.a
 obj/
-lib/lift/obj
+lib/lift/obj/
 nm
 
